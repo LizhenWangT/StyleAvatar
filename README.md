@@ -15,10 +15,10 @@ Tsinghua University & NNKOSMOS
 >Face reenactment methods attempt to restore and re-animate portrait videos as realistically as possible. Existing methods face a dilemma in quality versus controllability: 2D GAN-based methods achieve higher image quality but suffer in fine-grained control of facial attributes compared with 3D counterparts. In this work, we propose StyleAvatar, a real-time photo-realistic portrait avatar reconstruction method using StyleGAN-based networks, which can generate high-fidelity portrait avatars with faithful expression control. We expand the capabilities of StyleGAN by introducing a compositional representation and a sliding window augmentation method, which enable faster convergence and improve translation generalization. Specifically, we divide the portrait scenes into three parts for adaptive adjustments: facial region, non-facial foreground region, and the background. Besides, our network leverages the best of UNet, StyleGAN and time coding for video learning, which enables high-quality video generation. Furthermore, a sliding window augmentation method together with a pre-training strategy are proposed to improve translation generalization and training performance, respectively. The proposed network can converge within two hours while ensuring high image quality and a forward rendering time of only 20 milliseconds. Furthermore, we propose a real-time live system, which further pushes research into applications. Results and experiments demonstrate the superiority of our method in terms of image quality, full portrait video generation, and real-time re-animation compared to existing facial reenactment methods.
 
 <div align=center><img src="./docs/results.jpg" width = 70%></div>
-<center>**Fig.1** Facial re-enactment results of StyleAvatar.</center>
+<p align="center">Fig.1 Facial re-enactment results of StyleAvatar.</p>
 
 <div align=center><img src="./docs/pipeline.jpg"></div>
-<center>**Fig.2** The pipeline of our method.</center>
+<p align="center">Fig.2 The pipeline of our method.</p>
 
 ## Change Log
 
