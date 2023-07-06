@@ -23,7 +23,8 @@ Tsinghua University & NNKOSMOS
 ## Change Log
 
 2023.05.05 We will release code and pre-trained model soon.
-2023.07.06 Release the styleunet-related python code.
+
+2023.07.06 Release the styleunet-related python code and pretrained models.
 
 ## Python Requirements
 - Python 3.8
@@ -61,14 +62,14 @@ Mode 3 (3dmm-to-portrait image) refers to the ablation of "single-styleunet" in 
 
 | Mode | Input | Output |
 | :--- | :---: | :---: |
-| <div style="width: 100pt"> 0 (face inpainting trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/inpainting/mode0_test1.png" width="300px" height="300px"> | <img src="styleunet/output/inpainting/mode0_test1.png" width="300px" height="300px"> |
-| <div style="width: 100pt"> 0 (face inpainting trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/inpainting/mode0_test2.png" width="300px" height="300px"> | <img src="styleunet/output/inpainting/mode0_test2.png" width="300px" height="300px"> |
-| <div style="width: 100pt"> 1 (face superresolution trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/superresolution/mode1_test1.png" width="300px" height="300px"> | <img src="styleunet/output/superresolution/mode1_test1.png" width="300px" height="300px"> |
-| <div style="width: 100pt"> 1 (face superresolution trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/superresolution/mode1_test2.png" width="300px" height="300px"> | <img src="styleunet/output/superresolution/mode1_test2.png" width="300px" height="300px"> |
-| <div style="width: 100pt"> 2 (face retouching trained on [FFHQR](https://github.com/skylab-tech/ffhqr-dataset)) | <img src="styleunet/input/retouching/mode2_test3.png" width="300px" height="300px"> | <img src="styleunet/output/retouching/mode2_test3.png" width="300px" height="300px"> |
-| <div style="width: 100pt"> 2 (face retouching trained on [FFHQR](https://github.com/skylab-tech/ffhqr-dataset)) | <img src="styleunet/input/retouching/mode2_test2.png" width="300px" height="300px"> | <img src="styleunet/output/retouching/mode2_test2.png" width="300px" height="300px"> |
-| <div style="width: 100pt"> 3 (3dmm to portrait image trained on a single video) | <img src="styleunet/input/tdmm/mode3_test3.png" width="300px" height="300px"> | <img src="styleunet/output/tdmm/mode3_test3.png" width="300px" height="300px"> |
-| <div style="width: 100pt"> 3 (3dmm to portrait image trained on a single video) | <img src="styleunet/input/tdmm/mode3_test2.png" width="300px" height="300px"> | <img src="styleunet/output/tdmm/mode3_test2.png" width="300px" height="300px"> |
+| <div style="width: 100px"> 0 (face inpainting trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/inpainting/mode0_test1.png" width="300px" height="300px"> | <img src="styleunet/output/inpainting/mode0_test1.png" width="300px" height="300px"> |
+| <div style="width: 100px"> 0 (face inpainting trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/inpainting/mode0_test2.png" width="300px" height="300px"> | <img src="styleunet/output/inpainting/mode0_test2.png" width="300px" height="300px"> |
+| <div style="width: 100px"> 1 (face superresolution trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/superresolution/mode1_test1.png" width="300px" height="300px"> | <img src="styleunet/output/superresolution/mode1_test1.png" width="300px" height="300px"> |
+| <div style="width: 100px"> 1 (face superresolution trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/superresolution/mode1_test2.png" width="300px" height="300px"> | <img src="styleunet/output/superresolution/mode1_test2.png" width="300px" height="300px"> |
+| <div style="width: 100px"> 2 (face retouching trained on [FFHQR](https://github.com/skylab-tech/ffhqr-dataset)) | <img src="styleunet/input/retouching/mode2_test3.png" width="300px" height="300px"> | <img src="styleunet/output/retouching/mode2_test3.png" width="300px" height="300px"> |
+| <div style="width: 100px"> 2 (face retouching trained on [FFHQR](https://github.com/skylab-tech/ffhqr-dataset)) | <img src="styleunet/input/retouching/mode2_test2.png" width="300px" height="300px"> | <img src="styleunet/output/retouching/mode2_test2.png" width="300px" height="300px"> |
+| <div style="width: 100px"> 3 (3dmm to portrait image trained on a single video) | <img src="styleunet/input/tdmm/mode3_test3.png" width="300px" height="300px"> | <img src="styleunet/output/tdmm/mode3_test3.png" width="300px" height="300px"> |
+| <div style="width: 100px"> 3 (3dmm to portrait image trained on a single video) | <img src="styleunet/input/tdmm/mode3_test2.png" width="300px" height="300px"> | <img src="styleunet/output/tdmm/mode3_test2.png" width="300px" height="300px"> |
 
 
 ### Pretrain Model
