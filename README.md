@@ -58,18 +58,25 @@ Coming soon.
 
 We propose styleunet for high-resolution image-to-image translation tasks, which also refers to the ablation of "single-styleunet" in our paper. We test this network for some image-to-image translation tasks:
 
-Mode 3 (3dmm-to-portrait image) refers to the ablation of "single-styleunet" in our paper, which can transfer a 3dmm rendering to a real portrait image.
+
+Mode 0 (face inpainting trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset))
+
+Mode 1 (face superresolution trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset))
+
+Mode 2 (face retouching trained on [FFHQR](https://github.com/skylab-tech/ffhqr-dataset))
+
+Mode 3 (3dmm to portrait image trained on a single video) refers to the ablation of "single-styleunet" in our paper, which can transfer a 3dmm rendering to a real portrait image.
 
 | Mode | Input | Output |
 | :--- | :---: | :---: |
-| <div style="width: 100px"> 0 (face inpainting trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/inpainting/mode0_test1.png" width="300px" height="300px"> | <img src="styleunet/output/inpainting/mode0_test1.png" width="300px" height="300px"> |
-| <div style="width: 100px"> 0 (face inpainting trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/inpainting/mode0_test2.png" width="300px" height="300px"> | <img src="styleunet/output/inpainting/mode0_test2.png" width="300px" height="300px"> |
-| <div style="width: 100px"> 1 (face superresolution trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/superresolution/mode1_test1.png" width="300px" height="300px"> | <img src="styleunet/output/superresolution/mode1_test1.png" width="300px" height="300px"> |
-| <div style="width: 100px"> 1 (face superresolution trained on [FFHQ](https://github.com/NVlabs/ffhq-dataset)) | <img src="styleunet/input/superresolution/mode1_test2.png" width="300px" height="300px"> | <img src="styleunet/output/superresolution/mode1_test2.png" width="300px" height="300px"> |
-| <div style="width: 100px"> 2 (face retouching trained on [FFHQR](https://github.com/skylab-tech/ffhqr-dataset)) | <img src="styleunet/input/retouching/mode2_test3.png" width="300px" height="300px"> | <img src="styleunet/output/retouching/mode2_test3.png" width="300px" height="300px"> |
-| <div style="width: 100px"> 2 (face retouching trained on [FFHQR](https://github.com/skylab-tech/ffhqr-dataset)) | <img src="styleunet/input/retouching/mode2_test2.png" width="300px" height="300px"> | <img src="styleunet/output/retouching/mode2_test2.png" width="300px" height="300px"> |
-| <div style="width: 100px"> 3 (3dmm to portrait image trained on a single video) | <img src="styleunet/input/tdmm/mode3_test3.png" width="300px" height="300px"> | <img src="styleunet/output/tdmm/mode3_test3.png" width="300px" height="300px"> |
-| <div style="width: 100px"> 3 (3dmm to portrait image trained on a single video) | <img src="styleunet/input/tdmm/mode3_test2.png" width="300px" height="300px"> | <img src="styleunet/output/tdmm/mode3_test2.png" width="300px" height="300px"> |
+| <div style="width: 50px"> 0 | <img src="styleunet/input/inpainting/mode0_test1.png" width="300px" height="300px"> | <img src="styleunet/output/inpainting/mode0_test1.png" width="300px" height="300px"> |
+| <div style="width: 50px"> 0 | <img src="styleunet/input/inpainting/mode0_test2.png" width="300px" height="300px"> | <img src="styleunet/output/inpainting/mode0_test2.png" width="300px" height="300px"> |
+| <div style="width: 50px"> 1 | <img src="styleunet/input/superresolution/mode1_test1.png" width="300px" height="300px"> | <img src="styleunet/output/superresolution/mode1_test1.png" width="300px" height="300px"> |
+| <div style="width: 50px"> 1 | <img src="styleunet/input/superresolution/mode1_test2.png" width="300px" height="300px"> | <img src="styleunet/output/superresolution/mode1_test2.png" width="300px" height="300px"> |
+| <div style="width: 50px"> 2 | <img src="styleunet/input/retouching/mode2_test3.png" width="300px" height="300px"> | <img src="styleunet/output/retouching/mode2_test3.png" width="300px" height="300px"> |
+| <div style="width: 50px"> 2 | <img src="styleunet/input/retouching/mode2_test2.png" width="300px" height="300px"> | <img src="styleunet/output/retouching/mode2_test2.png" width="300px" height="300px"> |
+| <div style="width: 50px"> 3 | <img src="styleunet/input/tdmm/mode3_test3.png" width="300px" height="300px"> | <img src="styleunet/output/tdmm/mode3_test3.png" width="300px" height="300px"> |
+| <div style="width: 50px"> 3 | <img src="styleunet/input/tdmm/mode3_test2.png" width="300px" height="300px"> | <img src="styleunet/output/tdmm/mode3_test2.png" width="300px" height="300px"> |
 
 
 ### Pretrain Model
