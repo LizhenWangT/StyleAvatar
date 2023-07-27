@@ -185,9 +185,9 @@ def train(args, loader, back_generator, face_generator, image_generator, discrim
         fake_img, out_mask = image_generator(frame_latent, render, uv_position, feature_face, feature_back, skip_face, skip_back, uv_img_half, 
                                             mask_face, noise_base, noise_face, noise_back, mask_gt=None, stop_mask_grad=0)
         out_mask = out_mask / 2 + 0.5
-        mask_loss = torch.mean(torch.abs(mask - out_mask)) * 10 #* (1 - stop_mask_grad_)
-        l1_loss = torch.mean(torch.abs(fake_img - image)) * 5
-        vgg_loss = vgg(F.upsample(fake_img, size=(512, 512), mode='bilinear'), image_512)
+        mask_loss = torch.mean(torch.abs(mask - out_mask)) * 3 #* (1 - stop_mask_grad_)
+        l1_loss = torch.mean(torch.abs(fake_img - image)) * 1
+        vgg_loss = vgg(F.upsample(fake_img, size=(512, 512), mode='bilinear'), image_512) * 0.01
 
         if args.use_concat:
             fake_pred = discriminator(torch.cat([fake_img, render_for_concat], dim=1))
