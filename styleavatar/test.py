@@ -21,9 +21,9 @@ def test(args, generator, device):
         uv = cv2.resize(cv2.imread(os.path.join(args.uv_dir, name), -1)[:, :, :3], (args.input_size // 2, args.input_size // 2))
         render = cv2.copyMakeBorder(render, args.input_size // 2, args.input_size // 2, args.input_size // 2, args.input_size // 2, cv2.BORDER_CONSTANT, value=[0, 0, 0])
         render_img = Image.fromarray(render[:, :, ::-1])
-        render_img = transform(render_img).unsqueeze(0).repeat(args.batch, 1, 1, 1).to(device)
+        render_img = transform(render_img).unsqueeze(0).to(device)
         uv_img = Image.fromarray(uv[:, :, ::-1])
-        uv_img = transform(uv_img).unsqueeze(0).repeat(args.batch, 1, 1, 1).to(device)
+        uv_img = transform(uv_img).unsqueeze(0).to(device)
         with torch.no_grad():
             sample = generator(render_img, uv_img)
             outimg = np.clip(sample.cpu().numpy()[0].transpose((1, 2, 0)) * 127.5 + 127.5, 0, 255).astype(np.uint8)

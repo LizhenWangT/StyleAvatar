@@ -100,22 +100,22 @@ class SuperResolutionDataset(Dataset):
                 self.jpg_num += 1
             else:
                 self.jpg_num = 0
-            cv2.imwrite('logs/sample/tmp' + str(self.jpg_num) + '.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), 5])
-            image = cv2.imread('logs/sample/tmp' + str(self.jpg_num) + '.jpg', -1)
+            buf = cv2.imencode('.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), 5])[1]
+            image = cv2.imdecode(buf, flags=cv2.IMREAD_COLOR)
         elif poss < 0.4:
             if self.jpg_num < 10:
                 self.jpg_num += 1
             else:
                 self.jpg_num = 0
-            cv2.imwrite('logs/sample/tmp' + str(self.jpg_num) + '.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), 10])
-            image = cv2.imread('logs/sample/tmp' + str(self.jpg_num) + '.jpg', -1)
+            buf = cv2.imencode('.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), 10])[1]
+            image = cv2.imdecode(buf, flags=cv2.IMREAD_COLOR)
         elif poss < 0.5:
             if self.jpg_num < 10:
                 self.jpg_num += 1
             else:
                 self.jpg_num = 0
-            cv2.imwrite('logs/sample/tmp' + str(self.jpg_num) + '.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), 20])
-            image = cv2.imread('logs/sample/tmp' + str(self.jpg_num) + '.jpg', -1)
+            buf = cv2.imencode('.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), 20])[1]
+            image = cv2.imdecode(buf, flags=cv2.IMREAD_COLOR)
         elif poss < 0.6:
             gaussian_noise = np.random.randn(*image.shape) * 20
             sparse_matrix = np.random.rand(*image.shape)

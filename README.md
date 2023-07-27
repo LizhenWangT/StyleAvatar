@@ -37,7 +37,7 @@ Tsinghua University & NNKOSMOS
 - Python 3.8
 - PyTorch 2.0.1
 - torchvision 0.15.2
-- Cuda 11.7
+- CUDA 11.7
 - opencv-python
 - numpy
 - tqdm
@@ -57,7 +57,7 @@ cd styleunet/networks/stylegan_ops
 python3 setup.py install
 ```
 
-## Preprocess
+## Preprocess (Updated for styleavatar, please use the latest code)
 
 We provide a python code and an exe file for the preprocessing of a single portrait video. We will crop the video, then render the tracked FaceVerse model with texture and uv vertex colors. 
 
@@ -88,7 +88,7 @@ model 1 (trained on lizhen's video, python version): Coming soon
 
 ### Training and testing
 
-Train your styleavatar model or test the pretrained model or transfer the model to onnx then to tensorrt (TensorRT 8.5.3.1 with Cuda 11.3 on NVIDIA RTX 30xx)
+Train your styleavatar model or test the pretrained model or transfer the model to onnx then to tensorrt (TensorRT 8.5.3.1 with CUDA 11.3 on NVIDIA RTX 30xx)
 
 The training can start with the pretrained *model 0* or *model 1* above.
 ```
@@ -116,7 +116,7 @@ python torch2onnx.py --test_img path-to-dataset/render/000000.png --uv_img path-
 tensorrt/trtexec.exe --onnx=pretrained/xxx.onnx --saveEngine=pretrained/xxx_16.engine --fp16
 ```
 
-Windows exe testing (the same exe in preprocessing), only if your engine is converted by Cuda 11.3 and TensorRT 8.5.3.1 on a RTX 30XX GPU:
+Windows exe testing (the same exe in preprocessing), only if your engine is converted by CUDA 11.3 and TensorRT 8.5.3.1 on a RTX 30XX GPU:
 
 ```
 "mode": 1 for testing. 

@@ -42,7 +42,7 @@ def test(args, generator, device):
         import mediapipe as mp
         from face_alignment import face_align, face_align_inverse
         mp_face_mesh = mp.solutions.face_mesh.FaceMesh()
-    latent = torch.randn(args.batch, args.style_dim).to(device)
+    latent = torch.randn(1, args.style_dim).to(device).repeat(args.batch, 1)
     test_list = os.listdir(args.input_dir)
     for name in test_list:
         transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5), inplace=True)])
