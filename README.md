@@ -47,7 +47,7 @@ Tsinghua University & NNKOSMOS
 or
 
 ```
-conda create -f styleavatar.yaml
+conda env create -f styleavatar.yaml
 ```
 
 You need to compile the ops provided by [stylegan2-pytorch](https://github.com/rosinality/stylegan2-pytorch) using ninja:
