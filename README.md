@@ -98,9 +98,8 @@ or Baidu Netdisk: https://pan.baidu.com/s/1PzDV6fiBdfPqM4aiKnWo9w?pwd=62cn passw
 
 Reenactment example of the pretrained model (python):
 
-<video id="video" controls="" preload="none" poster="0">
-      <source id="mp4" src="./docs/styleavatar_offline.mp4" type="video/mp4">
-</video>
+<div align=center><img src="./docs/styleavatar_offline.gif" width = 100%></div>
+
 
 ### Training and testing
 
