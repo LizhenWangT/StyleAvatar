@@ -110,11 +110,6 @@ def train(args, loader, generator, discriminator, g_ema, g_optim, d_optim, devic
     if get_rank() == 0:
         pbar = tqdm(pbar, initial=args.start_iter, dynamic_ncols=True, smoothing=0.01)
 
-    if args.start_iter != 0:
-        for p in g_optim.param_groups:
-            p['lr'] = args.lr * min(1, 5000 / args.start_iter)
-        for p in d_optim.param_groups:
-            p['lr'] = args.lr * min(1, 5000 / args.start_iter)
     accum = 0.5 ** (32 / (10 * 1000))
     ada_aug_p = args.augment_p if args.augment_p > 0 else 0.0
 

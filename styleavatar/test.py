@@ -21,9 +21,9 @@ def test(args, generator, device):
         uv = cv2.resize(cv2.imread(os.path.join(args.uv_dir, name), -1)[:, :, :3], (args.input_size // 2, args.input_size // 2))
         render = cv2.copyMakeBorder(render, args.input_size // 2, args.input_size // 2, args.input_size // 2, args.input_size // 2, cv2.BORDER_CONSTANT, value=[0, 0, 0])
         render_img = Image.fromarray(render[:, :, ::-1])
-        render_img = transform(render_img).unsqueeze(0).to(device)
+        render_img = transform(render_img).unsqueeze(0).repeat(args.batch, 1, 1, 1).to(device)
         uv_img = Image.fromarray(uv[:, :, ::-1])
-        uv_img = transform(uv_img).unsqueeze(0).to(device)
+        uv_img = transform(uv_img).unsqueeze(0).repeat(args.batch, 1, 1, 1).to(device)
         with torch.no_grad():
             sample = generator(render_img, uv_img)
             outimg = np.clip(sample.cpu().numpy()[0].transpose((1, 2, 0)) * 127.5 + 127.5, 0, 255).astype(np.uint8)
@@ -40,7 +40,6 @@ if __name__ == "__main__":
     parser.add_argument("--ckpt", type=str, default=None, help="path to the checkpoints to resume training")
     parser.add_argument("--save_dir", type=str, default='test', help="path to the save folder")
     parser.add_argument("--channel_multiplier", type=int, default=2, help="channel multiplier factor for the model. config-f = 2, else = 1")
-    parser.add_argument("--for_cpp", action="store_true", help="put BHWC to BCHW and scale into the model")
     args = parser.parse_args()
 
     device = "cuda"
@@ -50,7 +49,7 @@ if __name__ == "__main__":
     args.input_size = 256
     args.output_size = 1024
     
-    g_ema = DoubleStyleUnet(args.input_size, args.output_size, args.latent_frame, args.n_mlp, channel_multiplier=args.channel_multiplier, for_cpp=args.for_cpp).to(device)
+    g_ema = DoubleStyleUnet(args.input_size, args.output_size, args.latent_frame, args.n_mlp, channel_multiplier=args.channel_multiplier, for_cpp=False).to(device)
     g_ema.eval()
 
     print("load model:", args.ckpt)

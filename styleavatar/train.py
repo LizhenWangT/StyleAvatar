@@ -116,16 +116,13 @@ def train(args, loader, back_generator, face_generator, image_generator, discrim
         pbar = tqdm(pbar, initial=args.start_iter, dynamic_ncols=True, smoothing=0.01)
 
     if args.start_iter != 0:
-        for p in b_g_optim.param_groups:
-            p['lr'] = args.lr * min(1, 5000 / args.start_iter)
-        for p in f_g_optim.param_groups:
-            p['lr'] = args.lr * min(1, 5000 / args.start_iter)
-        for p in i_g_optim.param_groups:
-            p['lr'] = args.lr * min(1, 5000 / args.start_iter)
-        for p in d_optim.param_groups:
-            p['lr'] = args.lr * min(1, 5000 / args.start_iter)
+        image, uv, render, back, frame_latent, video_latent = next(loader)
+        feature_face, skip_face = face_generator(video_latent[:, :args.latent_video].to(device))
+        feature_back_ori, skip_back_ori = back_generator(video_latent[:, :args.latent_video].to(device))
     
     accum = 0.5 ** (32 / (10 * 1000))
+
+    side_size = args.feature_size // 4
 
     for idx in pbar:
         i = idx + args.start_iter
@@ -135,8 +132,8 @@ def train(args, loader, back_generator, face_generator, image_generator, discrim
             break
 
         if idx % 2 == 0:
-            dis_x = np.clip(np.random.randn(1) * args.feature_size // 12 + args.feature_size // 4, 10, args.feature_size // 2 - 10).astype(np.int32)[0]
-            dis_y = np.clip(np.random.randn(1) * args.feature_size // 12 + args.feature_size // 4, 10, args.feature_size // 2 - 10).astype(np.int32)[0]
+            dis_x = np.clip(np.random.randn(1) * args.feature_size // 24 + args.feature_size // 4, 10, args.feature_size // 2 - 10).astype(np.int32)[0]
+            dis_y = np.clip(np.random.randn(1) * args.feature_size // 24 + args.feature_size // 4, 10, args.feature_size // 2 - 10).astype(np.int32)[0]
         else:
             dis_x = args.feature_size // 4
             dis_y = args.feature_size // 4
@@ -169,25 +166,34 @@ def train(args, loader, back_generator, face_generator, image_generator, discrim
         noise_back = torch.randn(args.batch, 21, args.feature_size, args.feature_size, device=device)
         noise_face = torch.randn(args.batch, 21, args.feature_size, args.feature_size, device=device)
 
-        requires_grad(back_generator, True)
-        requires_grad(face_generator, True)
         requires_grad(image_generator, True)
         requires_grad(discriminator, False)
+        if i <= 10000:
+            requires_grad(back_generator, True)
+            requires_grad(face_generator, True)
+            stop_mask_grad = 0
+            feature_face, skip_face = face_generator(video_latent)
+            feature_back_ori, skip_back_ori = back_generator(video_latent)
+        else:
+            requires_grad(back_generator, False)
+            requires_grad(face_generator, False)
+            stop_mask_grad = 0
+            feature_back_ori = feature_back_ori.detach().clone()
+            skip_back_ori = skip_back_ori.detach().clone()
+            feature_face = feature_face.detach().clone()
+            skip_face = skip_face.detach().clone()
 
-        feature_back, skip_back = back_generator(video_latent)
-        side_size = args.feature_size // 4
-        feature_back = F.upsample(feature_back, size=(args.feature_size * 2, args.feature_size * 2), mode='bilinear')
+        feature_back = F.upsample(feature_back_ori, size=(args.feature_size * 2, args.feature_size * 2), mode='bilinear')
         feature_back = feature_back[:, :, dis_y + side_size:dis_y + side_size + args.feature_size, dis_x + side_size:dis_x + side_size + args.feature_size]
-        skip_back = F.upsample(skip_back, size=(args.feature_size * 2, args.feature_size * 2), mode='bilinear')
+        skip_back = F.upsample(skip_back_ori, size=(args.feature_size * 2, args.feature_size * 2), mode='bilinear')
         skip_back = skip_back[:, :, dis_y + side_size:dis_y + side_size + args.feature_size, dis_x + side_size:dis_x + side_size + args.feature_size]
-        feature_face, skip_face = face_generator(video_latent)
 
         fake_img, out_mask = image_generator(frame_latent, render, uv_position, feature_face, feature_back, skip_face, skip_back, uv_img_half, 
-                                            mask_face, noise_base, noise_face, noise_back, mask_gt=None, stop_mask_grad=0)
+                                            mask_face, noise_base, noise_face, noise_back, mask_gt=None, stop_mask_grad=stop_mask_grad)
         out_mask = out_mask / 2 + 0.5
         mask_loss = torch.mean(torch.abs(mask - out_mask)) * 3 #* (1 - stop_mask_grad_)
         l1_loss = torch.mean(torch.abs(fake_img - image)) * 1
-        vgg_loss = vgg(F.upsample(fake_img, size=(512, 512), mode='bilinear'), image_512) * 0.01
+        vgg_loss = vgg(F.upsample(fake_img, size=(512, 512), mode='bilinear'), image_512) * 0.3
 
         if args.use_concat:
             fake_pred = discriminator(torch.cat([fake_img, render_for_concat], dim=1))
@@ -200,7 +206,7 @@ def train(args, loader, back_generator, face_generator, image_generator, discrim
         back_generator.zero_grad()
         face_generator.zero_grad()
         image_generator.zero_grad()
-        (l1_loss + vgg_loss + g_loss + mask_loss).backward()
+        (l1_loss + g_loss + mask_loss).backward()
         nn.utils.clip_grad_norm_(back_generator.parameters(), max_norm=1, norm_type=2)
         nn.utils.clip_grad_norm_(face_generator.parameters(), max_norm=1, norm_type=2)
         nn.utils.clip_grad_norm_(image_generator.parameters(), max_norm=1, norm_type=2)
@@ -310,7 +316,7 @@ if __name__ == "__main__":
 
     from dataset import TrainDataset
     dataset = TrainDataset(args.path, transform)
-    args.savename = 'tdmm'
+    args.savename = 'styleavatar'
     try:
         args.savename = os.path.basename(args.path)
     except ValueError:
@@ -373,6 +379,7 @@ if __name__ == "__main__":
         f_g_optim.load_state_dict(ckpt["f_g_optim"])
         i_g_optim.load_state_dict(ckpt["i_g_optim"])
 
+        ckpt = torch.load('../styleunet/pretrained/tdmm_lizhen_full.pt')
         discriminator.load_state_dict(ckpt["d"], strict=False)
         d_optim.load_state_dict(ckpt["d_optim"])
 
