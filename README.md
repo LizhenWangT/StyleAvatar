@@ -77,7 +77,7 @@ We provide a python code and an exe file for the preprocessing of a single portr
 
 **Note: We borrow some code and a checkpoint from [RobustVideoMatting](https://github.com/PeterL1n/RobustVideoMatting), we thank the authors of RVM for their great work.**
 
-2. Exe (Built on sm_86 RTX 30XX GPU with CUDA 11.3 and TensorRT 8.5.3.1): Windows exe version can be downloaded in [Google Drive](https://drive.google.com/file/d/1AcciXcmrtrGEZ40XCwjG3dkBHq7T_zHq/view?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1XRQ72viwSXJTsWS1wKKn2Q?pwd=4i9y) password: 4i9y, which is much faster but cannot be used on RTX 40xx GPU.
+2. Exe (Built on sm_86 RTX 30XX GPU with CUDA 11.3, CUDNN 8.6.0 and TensorRT 8.5.3.1): Windows exe version can be downloaded in [Google Drive](https://drive.google.com/file/d/1AcciXcmrtrGEZ40XCwjG3dkBHq7T_zHq/view?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1XRQ72viwSXJTsWS1wKKn2Q?pwd=4i9y) password: 4i9y, which is much faster but cannot be used on RTX 40xx GPU. If you miss some **cudnn dll files**, please download them in [Google Drive](https://drive.google.com/file/d/1lGYgwZ3_vLAlbEoNIzmR4H5WwwPNQcIa/view?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1nVfBu3wRQVgWDMCvyvFwSQ?pwd=bsm6) password: bsm6.
 
 >Modify the file `info.json` before you run your own model: Change the input video and save dir path to your path. `"mode": 0` for preprocessing. `skip_frames` is used to skip the first several frames without portrait regions. **`crop_size` should be 1024 for styleunet and 1536 for full styleavatar.** For cross-person testing, you should change the `change_id` to `true` and give the input id_path.
 
