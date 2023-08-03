@@ -305,7 +305,7 @@ if __name__ == "__main__":
     parser.add_argument("--ckpt", type=str, default=None, help="path to the checkpoints to resume training")
     parser.add_argument("--lr", type=float, default=0.002, help="learning rate")
     parser.add_argument("--channel_multiplier", type=int, default=2, help="channel multiplier factor for the model. config-f = 2, else = 1")
-    parser.add_argument("--local_rank", type=int, default=0, help="local rank for distributed training")
+    parser.add_argument("--local-rank", type=int, default=0, help="local rank for distributed training")
     args = parser.parse_args()
 
     transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5), inplace=True)])
