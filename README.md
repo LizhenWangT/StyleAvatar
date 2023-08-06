@@ -112,7 +112,7 @@ cd styleavatar
 python train.py --batch 3 --ckpt pretrained/xxxx.pt path-to-dataset
 ```
 
-Testing or use the pretrained models.
+Testing or use the pretrained models. **The portrait in the first frame of the testing video should keep facing the camera with a neutral expression. The rotation of the first frame will lead to wrong results.**
 ```
 cd styleavatar
 python test.py --render_dir path-to-dataset/render --uv_dir path-to-dataset/uv --ckpt pretrained/xxx.pt --save_dir output/xxxx
@@ -206,6 +206,8 @@ cd styleunet
 python test.py --input_dir input/inpainting --ckpt pretrained/inpainting_g_ema.pt --save_dir output/inpainting --mode 0
 python test.py --input_dir input/superresolution --ckpt pretrained/superresolution_g_ema.pt --save_dir output/superresolution --mode 1
 python test.py --input_dir input/retouching --ckpt pretrained/retouching_g_ema.pt --save_dir output/retouching --mode 2 --skin_whiten 0.5 --iter 2 --use_alignment
+
+# The portrait in the first frame of the testing video should keep facing the camera with a neutral expression. The rotation of the first frame will lead to wrong results.
 python test.py --input_dir input/tdmm --ckpt pretrained/tdmm_lizhen.pt --save_dir output/tdmm --mode 3
 ```
 
